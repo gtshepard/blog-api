@@ -1,5 +1,5 @@
-##Blogify
-- is a backend to a blog website written in pyhtion using the flask webframework 
+## Blogify
+- A backend to a blog website written in python using the flask webframework 
 
 
 
