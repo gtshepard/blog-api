@@ -25,13 +25,13 @@ const oidc = new ExpressOIDC({
     issuer:`https://${process.env.OKTA_ORG_URL}/oauth2/default`,
     client_id: process.env.OKTA_CLIENT_ID,
     client_secret: process.env.OKTA_CLIENT_SECRET,
-    redirect_uri:' https://localhost:3000/authorization-code/callback',
+    redirect_uri: 'http://localhost:3000/authorization-code/callback',
     scope: 'openid profile',
     routes: {
-        callback: {
-            path: '/callback',
-            defaultRedirect: '/admin'
-        }
+      callback: {
+        path:'/authorization-code/callback',
+        defaultRedirect: '/admin'
+      }
     }
 });
 
@@ -39,12 +39,27 @@ app.use(oidc.router);
 app.use(cors());
 app.use(bodyParser.json());
 
-
 app.get('/home', (req, res) => {
-   res.send('<h1>Welcome  </div><a href="/login">Login</a></h1>');
+   res.send('<h1>Welcome</div><a href="/login">Login</a></h1>');
 });
 
-app.get('/admin', (req, res) =>{
-  res.send('Admin page');
+app.get('/admin', oidc.ensureAuthenticated(),(req, res) =>{
+ res.send('Admin page');
 });
-app.listen(port, () => console.log(`My Blog App listening on port ${port}!`))
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/home')
+});
+
+app.get('/', (req, res) => {
+   res.redirect('/home');
+});
+
+oidc.on('ready', () => {
+  app.listen(3000, () => console.log(`Started!`));
+});
+
+oidc.on('error', err => {
+  console.log('Unable to configure ExpressOIDC', err);
+});
