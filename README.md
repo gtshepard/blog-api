@@ -1,5 +1,5 @@
 ## Blogify
-- A backend to a blog website written in python using the flask webframework 
+- A blogging website written with the following technologies
+  - React.js + Okta + Express.js + Node.js 
 
-
-
+- Still in active delelopment
