@@ -7,6 +7,7 @@ const session = require('express-session');
 const { ExpressOIDC } = require('@okta/oidc-middleware');
 const app = express();
 const port = 3000;
+const Sequelize = require('sequelize');
 
 
 /* Middleware functions have access to both request (HTTP request) 
@@ -25,7 +26,7 @@ const oidc = new ExpressOIDC({
     issuer:`https://${process.env.OKTA_ORG_URL}/oauth2/default`,
     client_id: process.env.OKTA_CLIENT_ID,
     client_secret: process.env.OKTA_CLIENT_SECRET,
-    redirect_uri: 'http://localhost:3000/authorization-code/callback',
+    redirect_uri: process.env.REDIRECT_URL,
     scope: 'openid profile',
     routes: {
       callback: {
