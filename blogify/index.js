@@ -8,11 +8,16 @@ const { ExpressOIDC } = require('@okta/oidc-middleware');
 const app = express();
 const port = 3000;
 const {User, Post} = require('./seq')
+const mongo = require('./model/model_post_mongo')
+const apiUser = require('./api/api_user')
+const apiPost = require('./api/api_user')
+
 /* Middleware functions have access to both request (HTTP request) 
  * and repsonse (HTTP response)  objects   
  *  express is a routing and middleware webframework 
  * application is actaully a series of middleware functions calls
  */
+
 app.use(session({
   secret: process.env.RANDOM_SECRET_WORD,
   resave: true,
@@ -36,6 +41,8 @@ const oidc = new ExpressOIDC({
 app.use(oidc.router);
 app.use(cors());
 app.use(bodyParser.json());
+
+apiUser(app, oidc.ensureAuthenticated(), User)
 
 app.get('/home', (req, res) => {
    res.send('<h1>Welcome</div><a href="/login">Login</a></h1>');
