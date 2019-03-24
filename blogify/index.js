@@ -7,15 +7,12 @@ const session = require('express-session');
 const { ExpressOIDC } = require('@okta/oidc-middleware');
 const app = express();
 const port = 3000;
-const Sequelize = require('sequelize');
-
-
+const {User, Post} = require('./seq')
 /* Middleware functions have access to both request (HTTP request) 
  * and repsonse (HTTP response)  objects   
  *  express is a routing and middleware webframework 
  * application is actaully a series of middleware functions calls
  */
-
 app.use(session({
   secret: process.env.RANDOM_SECRET_WORD,
   resave: true,
