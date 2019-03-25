@@ -43,6 +43,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 apiUser(app, oidc.ensureAuthenticated(), User)
+apiPost(app, oidc.ensureAuthenticated(), Post)
 
 app.get('/home', (req, res) => {
    res.send('<h1>Welcome</div><a href="/login">Login</a></h1>');

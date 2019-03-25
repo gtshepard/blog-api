@@ -1,6 +1,6 @@
 module.exports = (app, auth, user) => {
   
-  app.get('/users', auth , (req, res) => { 
+  app.get('/users', auth, (req, res) => { 
     user.findAll().then((result) => res.json(result))
    });
   
@@ -17,4 +17,23 @@ module.exports = (app, auth, user) => {
         passwordHash: req.body.passwordHash
      }).then((result) => res.json(result))
   });
+
+  app.put("/user/:id", (req, res) => 
+    user.update({
+      userName: req.body.userName,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      passwordHash: req.body.passwordHash
+    }).then((result) => res.json(result))
+  );
+
+ app.delete("/user/:id", (req, res) => 
+  user.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then((result) => res.json(result))
+ );
+
 }
