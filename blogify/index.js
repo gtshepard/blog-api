@@ -8,7 +8,7 @@ const { ExpressOIDC } = require('@okta/oidc-middleware');
 const app = express();
 const port = 3000;
 const {User, Post} = require('./seq')
-const mongo = require('./model/model_post_mongo')
+const mongo = require('./mongo')
 const apiUser = require('./api/api_user')
 const apiPost = require('./api/api_user')
 
