@@ -1,4 +1,4 @@
-module.exports = (app, auth, post) => {
+module.exports = (app, auth, post, mongo) => {
   /*   
     * add  mongo module.
     * then mongo.db.connect should work. 
@@ -6,9 +6,14 @@ module.exports = (app, auth, post) => {
   
   /* get all posts for entire website*/
   app.get("/posts", auth,(req, res) => 
-    post.findAll().then((result) 
-      => res.json(result) 
-    )
+      post.findAll().then((result) 
+      => res.json(result))
+
+      /* for each post id search and retrieve from mongo 
+    *   so collect all ids, 
+    * */
+      
+
   );
 
   /*get all posts for a user*/

@@ -7,7 +7,6 @@ module.export = (app, auth) => {
   class Post extends Model{}
   db.register(Post);
 
-
 app.post('/post/mongo', (req, res) => 
   Post({
   postId: req.params.id,
