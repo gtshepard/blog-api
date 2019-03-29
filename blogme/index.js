@@ -10,7 +10,7 @@ const port = 3000;
 const {User, Post} = require('./seq')
 const mongo = require('./mongo')
 const apiUser = require('./api/api_user')
-const apiPost = require('./api/api_user')
+const apiPost = require('./api/api_post')
 
 /* Middleware functions have access to both request (HTTP request) 
  * and repsonse (HTTP response)  objects   
@@ -43,7 +43,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 apiUser(app, oidc.ensureAuthenticated(), User)
-apiPost(app, oidc.ensureAuthenticated(), Post, mongo)
+apiPost(app, oidc.ensureAuthenticated(), Post)
 
 app.get('/home', (req, res) => {
    res.send('<h1>Welcome</div><a href="/login">Login</a></h1>');
