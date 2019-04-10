@@ -1,11 +1,11 @@
-module.exports = (app, auth, post) => {
+module.exports = (app, post) => {
   /*   
     * add  mongo module.
     * then mongo.db.connect should work. 
     *   */
   
   /* get all posts for entire website*/
-  app.get("/posts", auth, (req, res) => {
+  app.get("/posts", (req, res) => {
       const allPosts =  post.findAll().then((result) => res.json(result));
       
   });

@@ -38,18 +38,19 @@ const oidc = new ExpressOIDC({
     }
 });
 
-app.use(oidc.router);
+/*app.use(oidc.router);*/
 app.use(cors());
 app.use(bodyParser.json());
 
-apiUser(app, oidc.ensureAuthenticated(), User)
-apiPost(app, oidc.ensureAuthenticated(), Post)
+apiUser(app, User)
+apiPost(app, Post)
 
 app.get('/home', (req, res) => {
-   res.send('<h1>Welcome</div><a href="/login">Login</a></h1>');
+   /*res.send('<h1>Welcome</div><a href="/login">Login</a></h1>');*/
+  res.send('<h1> HELLO</h1>');
 });
 
-app.get('/admin', oidc.ensureAuthenticated(),(req, res) =>{
+app.get('/admin',(req, res) =>{
  res.send('Admin page');
 });
 
